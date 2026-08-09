@@ -248,6 +248,25 @@ Menu_Frame.Size = UDim2.new(0, 500, 0, 450)
 Menu_Frame.Visible = false
 Menu_Frame.Parent = Menu.Screen
 CreateStroke(Menu_Frame, Color3.new(), 2)
+
+-- Add glow effect around main window (like checkbox glow)
+local MenuGlow = Instance.new("ImageLabel")
+MenuGlow.Name = "MenuGlow"
+MenuGlow.BackgroundTransparency = 1
+MenuGlow.Image = "rbxassetid://5028857084"
+MenuGlow.ImageColor3 = Menu.Accent
+MenuGlow.ImageTransparency = 0.5
+MenuGlow.ScaleType = Enum.ScaleType.Slice
+MenuGlow.SliceCenter = Rect.new(24, 24, 276, 276)
+MenuGlow.Position = UDim2.fromScale(-0.1, -0.1)
+MenuGlow.Size = UDim2.fromScale(1.2, 1.2)
+MenuGlow.ZIndex = 0
+MenuGlow.Parent = Menu_Frame
+
+AddEventListener(MenuGlow, function()
+    MenuGlow.ImageColor3 = Menu.Accent
+end)
+
 CreateLine(Menu_Frame, UDim2.new(1, -8, 0, 1), UDim2.new(0, 4, 0, 15))
 SetDraggable(Menu_Frame)
 
