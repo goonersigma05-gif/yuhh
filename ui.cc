@@ -215,6 +215,11 @@ local function SetDraggable(self: GuiObject)
             
             local Position = UDim2.fromOffset(OffsetX, OffsetY)
 			self.Position = Position
+			
+			-- Update MenuGlow position to follow Menu_Frame
+			if self == Menu_Frame and MenuGlow then
+			    MenuGlow.Position = UDim2.fromOffset(OffsetX - 15, OffsetY - 15)
+			end
         end
     end)
 end
@@ -243,8 +248,8 @@ Menu_Frame.Name = "Menu"
 Menu_Frame.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
 Menu_Frame.BorderColor3 = Color3.fromRGB(40, 40, 40)
 Menu_Frame.BorderMode = Enum.BorderMode.Inset
-Menu_Frame.Position = UDim2.new(0.5, -290, 0.5, -240)
-Menu_Frame.Size = UDim2.new(0, 580, 0, 480)
+Menu_Frame.Position = UDim2.new(0.5, -260, 0.5, -210)
+Menu_Frame.Size = UDim2.new(0, 520, 0, 420)
 Menu_Frame.Visible = false
 Menu_Frame.Parent = Menu.Screen
 CreateStroke(Menu_Frame, Color3.new(), 2)
@@ -258,8 +263,8 @@ MenuGlow.ImageColor3 = Menu.Accent
 MenuGlow.ImageTransparency = 0.3
 MenuGlow.ScaleType = Enum.ScaleType.Slice
 MenuGlow.SliceCenter = Rect.new(24, 24, 276, 276)
-MenuGlow.Position = UDim2.new(0.5, -305, 0.5, -255)
-MenuGlow.Size = UDim2.fromOffset(610, 510)
+MenuGlow.Position = UDim2.new(0.5, -275, 0.5, -225)
+MenuGlow.Size = UDim2.fromOffset(550, 450)
 MenuGlow.ZIndex = 0
 MenuGlow.Visible = false
 MenuGlow.Parent = Menu.Screen
