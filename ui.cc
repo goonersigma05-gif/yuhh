@@ -253,27 +253,6 @@ Menu_Frame.Size = UDim2.new(0, 520, 0, 420)
 Menu_Frame.Visible = false
 Menu_Frame.Parent = Menu.Screen
 CreateStroke(Menu_Frame, Color3.new(), 2)
-
--- Add glow effect around main window (parented to Screen, not Menu_Frame)
-local MenuGlow = Instance.new("ImageLabel")
-MenuGlow.Name = "MenuGlow"
-MenuGlow.BackgroundTransparency = 1
-MenuGlow.Image = "rbxassetid://5028857084"
-MenuGlow.ImageColor3 = Menu.Accent
-MenuGlow.ImageTransparency = 0.3
-MenuGlow.ScaleType = Enum.ScaleType.Slice
-MenuGlow.SliceCenter = Rect.new(24, 24, 276, 276)
-MenuGlow.Position = UDim2.new(0.5, -275, 0.5, -225)
-MenuGlow.Size = UDim2.fromOffset(550, 450)
-MenuGlow.ZIndex = 0
-MenuGlow.Visible = false
-MenuGlow.Parent = Menu.Screen
-
-AddEventListener(MenuGlow, function()
-    MenuGlow.ImageColor3 = Menu.Accent
-    MenuGlow.Visible = Menu_Frame.Visible
-end)
-
 CreateLine(Menu_Frame, UDim2.new(1, -8, 0, 1), UDim2.new(0, 4, 0, 15))
 SetDraggable(Menu_Frame)
 
@@ -526,10 +505,10 @@ end
 -- Helper function to sync MenuGlow with Menu_Frame
 local function UpdateMenuGlow()
     if MenuGlow and Menu_Frame then
-        local pos = Menu_Frame.Position
-        local size = Menu_Frame.AbsoluteSize
-        MenuGlow.Position = UDim2.fromOffset(pos.X.Offset - 15, pos.Y.Offset - 15)
-        MenuGlow.Size = UDim2.fromOffset(size.X + 30, size.Y + 30)
+        local absPos = Menu_Frame.AbsolutePosition
+        local absSize = Menu_Frame.AbsoluteSize
+        MenuGlow.Position = UDim2.fromOffset(absPos.X - 15, absPos.Y - 15)
+        MenuGlow.Size = UDim2.fromOffset(absSize.X + 30, absSize.Y + 30)
     end
 end
 
