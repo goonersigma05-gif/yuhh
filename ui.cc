@@ -217,8 +217,8 @@ local function SetDraggable(self: GuiObject)
 			self.Position = Position
 			
 			-- Update MenuGlow position to follow Menu_Frame
-			if self == Menu_Frame and MenuGlow then
-			    MenuGlow.Position = UDim2.fromOffset(OffsetX - 15, OffsetY - 15)
+			if self == Menu_Frame then
+			    UpdateMenuGlow()
 			end
         end
     end)
@@ -523,6 +523,16 @@ function Menu:SetIcon(Icon: string)
 end
 
 
+-- Helper function to sync MenuGlow with Menu_Frame
+local function UpdateMenuGlow()
+    if MenuGlow and Menu_Frame then
+        local pos = Menu_Frame.Position
+        local size = Menu_Frame.AbsoluteSize
+        MenuGlow.Position = UDim2.fromOffset(pos.X.Offset - 15, pos.Y.Offset - 15)
+        MenuGlow.Size = UDim2.fromOffset(size.X + 30, size.Y + 30)
+    end
+end
+
 function Menu:SetSize(Size: Vector2)
     local Size = typeof(Size) == "Vector2" and Size or typeof(Size) == "UDim2" and Vector2.new(Size.X, Size.Y) or Menu.MinSize
     local X = Size.X
@@ -536,6 +546,7 @@ function Menu:SetSize(Size: Vector2)
     end
 
     Menu_Frame.Size = UDim2.fromOffset(X, Y)
+    UpdateMenuGlow()
     UpdateTabs()
 end
 
@@ -547,6 +558,8 @@ function Menu:SetVisible(Visible: boolean)
     Menu.IsVisible = IsVisible
     if IsVisible == false then
         UpdateSelected()
+    else
+        UpdateMenuGlow()
     end
 end
 
