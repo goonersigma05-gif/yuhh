@@ -243,8 +243,8 @@ Menu_Frame.Name = "Menu"
 Menu_Frame.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
 Menu_Frame.BorderColor3 = Color3.fromRGB(40, 40, 40)
 Menu_Frame.BorderMode = Enum.BorderMode.Inset
-Menu_Frame.Position = UDim2.new(0.5, -250, 0.5, -275)
-Menu_Frame.Size = UDim2.new(0, 500, 0, 550)
+Menu_Frame.Position = UDim2.new(0.5, -250, 0.5, -225)
+Menu_Frame.Size = UDim2.new(0, 500, 0, 450)
 Menu_Frame.Visible = false
 Menu_Frame.Parent = Menu.Screen
 CreateStroke(Menu_Frame, Color3.new(), 2)
@@ -933,17 +933,17 @@ function Menu.CheckBox(Tab_Name: string, Container_Name: string, Name: string, B
     Corner.CornerRadius = UDim.new(0, 2)
     Corner.Parent = Button
     
-    -- Add subtle glow effect
+    -- Add subtle glow effect (more visible)
     local Glow = Instance.new("ImageLabel")
     Glow.Name = "Glow"
     Glow.BackgroundTransparency = 1
     Glow.Image = "rbxassetid://5028857084"
     Glow.ImageColor3 = Menu.Accent
-    Glow.ImageTransparency = 0.7
+    Glow.ImageTransparency = 0.4
     Glow.ScaleType = Enum.ScaleType.Slice
     Glow.SliceCenter = Rect.new(24, 24, 276, 276)
-    Glow.Position = UDim2.fromScale(-0.5, -0.5)
-    Glow.Size = UDim2.fromScale(2, 2)
+    Glow.Position = UDim2.fromScale(-1, -1)
+    Glow.Size = UDim2.fromScale(3, 3)
     Glow.ZIndex = 0
     Glow.Visible = false
     Glow.Parent = Button
