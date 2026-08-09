@@ -2570,8 +2570,19 @@ function Menu.Indicators(): Indicators
             ValueLabel.BackgroundColor3 = Menu.Accent
             ValueLabel.Text = ""
             ValueLabel.Parent = ObjectBase
+            
+            -- Add gradient for health bar (green -> yellow -> red)
+            local Gradient = Instance.new("UIGradient")
+            Gradient.Name = "HealthGradient"
+            Gradient.Color = ColorSequence.new{
+                ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 50, 50)),   -- Red (low health)
+                ColorSequenceKeypoint.new(0.5, Color3.fromRGB(255, 200, 50)), -- Yellow (mid health)
+                ColorSequenceKeypoint.new(1, Color3.fromRGB(50, 255, 50))     -- Green (high health)
+            }
+            Gradient.Parent = ValueLabel
+            
             AddEventListener(ValueLabel, function()
-                ValueLabel.BackgroundColor3 = Menu.Accent
+                -- Don't override with Menu.Accent for health bars
             end)
         else
             Object.Size = UDim2.new(0, 230, 0, 15)
@@ -2588,9 +2599,14 @@ function Menu.Indicators(): Indicators
                     self.Min = typeof(Min) == "number" and Min or self.Min
                     self.Max = typeof(Max) == "number" and Max or self.Max
 
-                    local Scale = (self.Value - self.Min) / (self.Max - self.Min)
-                    Object.State.Text = "[" .. tostring(self.Value) .. "]"
-                    Object.Bar.Value.Size = UDim2.new(math.clamp(Scale, 0, 1), 0, 0, 5)
+                    local Scale = (Value - self.Min) / (self.Max - self.Min)
+                    Object.State.Text = "[" .. tostring(Value) .. "]"
+                    
+                    -- Smooth animation for health bar
+                    local targetSize = UDim2.new(math.clamp(Scale, 0, 1), 0, 0, 5)
+                    TweenService:Create(Object.Bar.Value, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                        Size = targetSize
+                    }):Play()
                 end
                 self.Value = Value
             end
