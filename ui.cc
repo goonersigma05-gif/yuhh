@@ -243,23 +243,23 @@ Menu_Frame.Name = "Menu"
 Menu_Frame.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
 Menu_Frame.BorderColor3 = Color3.fromRGB(40, 40, 40)
 Menu_Frame.BorderMode = Enum.BorderMode.Inset
-Menu_Frame.Position = UDim2.new(0.5, -250, 0.5, -225)
-Menu_Frame.Size = UDim2.new(0, 500, 0, 450)
+Menu_Frame.Position = UDim2.new(0.5, -290, 0.5, -240)
+Menu_Frame.Size = UDim2.new(0, 580, 0, 480)
 Menu_Frame.Visible = false
 Menu_Frame.Parent = Menu.Screen
 CreateStroke(Menu_Frame, Color3.new(), 2)
 
--- Add glow effect around main window (like checkbox glow) - no gap
+-- Add glow effect around main window (like checkbox glow) - visible
 local MenuGlow = Instance.new("ImageLabel")
 MenuGlow.Name = "MenuGlow"
 MenuGlow.BackgroundTransparency = 1
 MenuGlow.Image = "rbxassetid://5028857084"
 MenuGlow.ImageColor3 = Menu.Accent
-MenuGlow.ImageTransparency = 0.5
+MenuGlow.ImageTransparency = 0.3
 MenuGlow.ScaleType = Enum.ScaleType.Slice
 MenuGlow.SliceCenter = Rect.new(24, 24, 276, 276)
-MenuGlow.Position = UDim2.fromOffset(-10, -10)
-MenuGlow.Size = UDim2.new(1, 20, 1, 20)
+MenuGlow.Position = UDim2.fromOffset(-15, -15)
+MenuGlow.Size = UDim2.new(1, 30, 1, 30)
 MenuGlow.ZIndex = 0
 MenuGlow.Parent = Menu_Frame
 
