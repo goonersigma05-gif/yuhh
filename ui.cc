@@ -249,7 +249,7 @@ Menu_Frame.Visible = false
 Menu_Frame.Parent = Menu.Screen
 CreateStroke(Menu_Frame, Color3.new(), 2)
 
--- Add glow effect around main window (like checkbox glow) - visible
+-- Add glow effect around main window (parented to Screen, not Menu_Frame)
 local MenuGlow = Instance.new("ImageLabel")
 MenuGlow.Name = "MenuGlow"
 MenuGlow.BackgroundTransparency = 1
@@ -258,13 +258,15 @@ MenuGlow.ImageColor3 = Menu.Accent
 MenuGlow.ImageTransparency = 0.3
 MenuGlow.ScaleType = Enum.ScaleType.Slice
 MenuGlow.SliceCenter = Rect.new(24, 24, 276, 276)
-MenuGlow.Position = UDim2.fromOffset(-15, -15)
-MenuGlow.Size = UDim2.new(1, 30, 1, 30)
+MenuGlow.Position = UDim2.new(0.5, -305, 0.5, -255)
+MenuGlow.Size = UDim2.fromOffset(610, 510)
 MenuGlow.ZIndex = 0
-MenuGlow.Parent = Menu_Frame
+MenuGlow.Visible = false
+MenuGlow.Parent = Menu.Screen
 
 AddEventListener(MenuGlow, function()
     MenuGlow.ImageColor3 = Menu.Accent
+    MenuGlow.Visible = Menu_Frame.Visible
 end)
 
 CreateLine(Menu_Frame, UDim2.new(1, -8, 0, 1), UDim2.new(0, 4, 0, 15))
@@ -536,6 +538,7 @@ end
 function Menu:SetVisible(Visible: boolean)
     local IsVisible = typeof(Visible) == "boolean" and Visible
     Menu_Frame.Visible = IsVisible
+    MenuGlow.Visible = IsVisible
     Menu.IsVisible = IsVisible
     if IsVisible == false then
         UpdateSelected()
