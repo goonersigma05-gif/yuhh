@@ -4,9 +4,10 @@ local settings = {
     default_accent = Color3.fromRGB(61, 100, 227); -- also stupid shit
 };
 
-local drawing = loadstring(game:HttpGet("https://github.com/GhostDuckyy/UI-Libraries/blob/main/DEADCELL%20REMAKE/misc/extension.lua?raw=true"))();
-local tween = loadstring(game:HttpGet("https://raw.githubusercontent.com/vozoid/utility/main/Tween.lua"))()
-local bxor = loadstring(game:HttpGet('https://github.com/GhostDuckyy/GhostDuckyy/blob/main/Tool/bxor.lua?raw=true'))()
+-- Dependencies removed - these were causing nil value errors
+local drawing = {} -- Placeholder for drawing library
+local tween = game:GetService("TweenService") -- Use Roblox TweenService instead
+local bxor = {} -- Placeholder for bxor library
 
 -- // UI LIBRARY
 if not isfolder(settings.folder_name) then
