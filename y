@@ -285,8 +285,14 @@ function Library:CreateWindow(config)
         
         table.insert(Window.Tabs, Tab)
         
-        -- Create Section function (two-column layout like the image)
-        function Tab:CreateSection(config)
+        return Tab
+    end
+    
+    return Window
+end
+
+-- Create Section function (two-column layout like the image)
+function CreateSection(tab, config)
             config = config or {}
             local sectionName = config.Name or "Section"
             local sectionIcon = config.Icon or "⚙️"
@@ -391,9 +397,14 @@ function Library:CreateWindow(config)
             Section.LeftColumn = LeftColumn
             Section.RightColumn = RightColumn
             
-            table.insert(Tab.Sections, Section)
+            table.insert(tab.Sections, Section)
             
-            return Section
+            return setmetatable(Section, SectionMeta)
+        end
+        
+        -- Add CreateSection to Tab
+        function Tab:CreateSection(config)
+            return CreateSection(self, config)
         end
         
         return Tab
@@ -1190,11 +1201,4 @@ function SectionMeta:AddPercentage(config)
     return AddPercentage(self, config)
 end
 
--- Apply metatable to sections
-local OriginalCreateSection = Library.CreateSection
-if OriginalCreateSection then
-    function Library.CreateSection(tab, config)
-        local section = OriginalCreateSection(tab, config)
-        return setmetatable(section, SectionMeta)
-    end
-end
+return Library
