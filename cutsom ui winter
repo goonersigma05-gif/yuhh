@@ -1,5 +1,5 @@
 --[[
-    INTER UI LIBRARY v3.8
+    WINTER UI LIBRARY v3.8
     Beautiful animated UI with snowflakes theme
     Created for da hood // zee hood
 ]]
@@ -9,7 +9,7 @@ local TweenService = game:GetService("TweenService")
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
-local LocalPlayer = Players.LocalPlayer
+local LocalPlayer = Players.LocalPlayer or Players:GetPropertyChangedSignal("LocalPlayer"):Wait() and Players.LocalPlayer
 
 -- UI State
 local mainGui = nil
