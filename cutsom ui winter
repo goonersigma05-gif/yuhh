@@ -830,13 +830,96 @@ function WinterUI:AddDropdown(tabName, config)
     }
 end
 
+-- Add Section (with blue line header)
+function WinterUI:AddSection(tabName, title, description)
+    local tab = currentWindow.Tabs[tabName]
+    if not tab then return end
+    
+    local sectionFrame = Instance.new("Frame")
+    sectionFrame.Size = UDim2.new(1, 0, 0, description and 70 or 50)
+    sectionFrame.BackgroundColor3 = Color3.fromRGB(25, 30, 40)
+    sectionFrame.BorderSizePixel = 0
+    sectionFrame.Parent = tab.Content
+    
+    local sectionCorner = Instance.new("UICorner")
+    sectionCorner.CornerRadius = UDim.new(0, 8)
+    sectionCorner.Parent = sectionFrame
+    
+    local sectionStroke = Instance.new("UIStroke")
+    sectionStroke.Color = currentTheme.primary
+    sectionStroke.Thickness = 1
+    sectionStroke.Transparency = 0.5
+    sectionStroke.Parent = sectionFrame
+    
+    -- Blue accent line on left
+    local accentLine = Instance.new("Frame")
+    accentLine.Size = UDim2.new(0, 3, 1, -16)
+    accentLine.Position = UDim2.new(0, 8, 0, 8)
+    accentLine.BackgroundColor3 = currentTheme.primary
+    accentLine.BorderSizePixel = 0
+    accentLine.Parent = sectionFrame
+    
+    local lineCorner = Instance.new("UICorner")
+    lineCorner.CornerRadius = UDim.new(1, 0)
+    lineCorner.Parent = accentLine
+    
+    local titleLabel = Instance.new("TextLabel")
+    titleLabel.Size = UDim2.new(1, -25, 0, 20)
+    titleLabel.Position = UDim2.new(0, 20, 0, 10)
+    titleLabel.BackgroundTransparency = 1
+    titleLabel.Text = title
+    titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    titleLabel.TextSize = 15
+    titleLabel.Font = Enum.Font.GothamBold
+    titleLabel.TextXAlignment = Enum.TextXAlignment.Left
+    titleLabel.Parent = sectionFrame
+    
+    if description then
+        local descLabel = Instance.new("TextLabel")
+        descLabel.Size = UDim2.new(1, -25, 0, 35)
+        descLabel.Position = UDim2.new(0, 20, 0, 30)
+        descLabel.BackgroundTransparency = 1
+        descLabel.Text = description
+        descLabel.TextColor3 = Color3.fromRGB(140, 145, 160)
+        descLabel.TextSize = 12
+        descLabel.Font = Enum.Font.Gotham
+        descLabel.TextXAlignment = Enum.TextXAlignment.Left
+        descLabel.TextYAlignment = Enum.TextYAlignment.Top
+        descLabel.TextWrapped = true
+        descLabel.Parent = sectionFrame
+    end
+end
+
+-- Add Category Label
+function WinterUI:AddCategory(tabName, categoryName)
+    local tab = currentWindow.Tabs[tabName]
+    if not tab then return end
+    
+    local categoryFrame = Instance.new("Frame")
+    categoryFrame.Size = UDim2.new(1, 0, 0, 30)
+    categoryFrame.BackgroundTransparency = 1
+    categoryFrame.Parent = tab.Content
+    
+    local categoryLabel = Instance.new("TextLabel")
+    categoryLabel.Size = UDim2.new(1, -15, 1, 0)
+    categoryLabel.Position = UDim2.new(0, 15, 0, 0)
+    categoryLabel.BackgroundTransparency = 1
+    categoryLabel.Text = categoryName
+    categoryLabel.TextColor3 = Color3.fromRGB(100, 110, 130)
+    categoryLabel.TextSize = 11
+    categoryLabel.Font = Enum.Font.GothamBold
+    categoryLabel.TextXAlignment = Enum.TextXAlignment.Left
+    categoryLabel.TextYAlignment = Enum.TextYAlignment.Bottom
+    categoryLabel.Parent = categoryFrame
+end
+
 -- Add Label
 function WinterUI:AddLabel(tabName, text)
     local tab = currentWindow.Tabs[tabName]
     if not tab then return end
     
     local labelFrame = Instance.new("Frame")
-    labelFrame.Size = UDim2.new(1, 0, 0, 35)
+    labelFrame.Size = UDim2.new(1, 0, 0, 25)
     labelFrame.BackgroundTransparency = 1
     labelFrame.Parent = tab.Content
     
@@ -845,8 +928,8 @@ function WinterUI:AddLabel(tabName, text)
     label.Position = UDim2.new(0, 15, 0, 0)
     label.BackgroundTransparency = 1
     label.Text = text
-    label.TextColor3 = Color3.fromRGB(180, 180, 190)
-    label.TextSize = 13
+    label.TextColor3 = Color3.fromRGB(140, 145, 160)
+    label.TextSize = 12
     label.Font = Enum.Font.Gotham
     label.TextXAlignment = Enum.TextXAlignment.Left
     label.TextWrapped = true
