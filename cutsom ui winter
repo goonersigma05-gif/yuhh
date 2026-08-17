@@ -72,7 +72,11 @@ end
 
 local function CreateGradient(parent, colors, rotation)
     local gradient = Instance.new("UIGradient")
-    gradient.Color = ColorSequence.new(colors)
+    local colorSequence = ColorSequence.new({
+        ColorSequenceKeypoint.new(0, colors[1]),
+        ColorSequenceKeypoint.new(1, colors[2])
+    })
+    gradient.Color = colorSequence
     gradient.Rotation = rotation or 90
     gradient.Parent = parent
     return gradient
@@ -2398,4 +2402,47 @@ function WinterUI:CreateAudioVisualizer(parent)
 end
 
 -- Return library
+return WinterUI
+    settingsLabel.Position = UDim2.new(0, 5, 0, 0)
+    settingsLabel.BackgroundTransparency = 1
+    settingsLabel.Text = "⚙️ Settings"
+    settingsLabel.Font = Enum.Font.GothamBold
+    settingsLabel.TextSize = 13
+    settingsLabel.TextColor3 = WinterUI.CurrentTheme.Text
+    settingsLabel.TextXAlignment = Enum.TextXAlignment.Left
+    settingsLabel.ZIndex = 17
+    settingsLabel.Parent = settingsBtn
+    
+    local settingsButton = Instance.new("TextButton")
+    settingsButton.Size = UDim2.new(1, 0, 1, 0)
+    settingsButton.BackgroundTransparency = 1
+    settingsButton.Text = ""
+    settingsButton.ZIndex = 18
+    settingsButton.Parent = settingsBtn
+    
+    settingsButton.MouseButton1Click:Connect(function()
+        WinterUI:CreateContextMenu({
+            Position = UDim2.new(0, settingsBtn.AbsolutePosition.X + settingsBtn.AbsoluteSize.X + 10, 0, settingsBtn.AbsolutePosition.Y),
+            Options = {
+                {Text = "Change Theme", Icon = "🎨", Callback = function() 
+                    window:Notify("Theme", "Use SetTheme() method to change themes", 3, "info")
+                end},
+                {Text = "Toggle Snowflakes", Icon = "❄️", Callback = function()
+                    window.Snowflakes.Active = not window.Snowflakes.Active
+                    if window.Snowflakes.Active then
+                        window.Snowflakes:Start()
+                    else
+                        window.Snowflakes:Stop()
+                    end
+                end},
+                {Text = "Performance Monitor", Icon = "📊", Callback = function()
+                    WinterUI:CreatePerformanceMonitor(window.MainContainer)
+                end}
+            }
+        })
+    end)
+    
+    return settingsBtn
+end
+
 return WinterUI
